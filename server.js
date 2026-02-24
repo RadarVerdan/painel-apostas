@@ -1,19 +1,20 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Railway usa a porta do ambiente (OBRIGATÓRIO)
 const PORT = process.env.PORT || 3000;
 
-// Servir arquivos estáticos (se tiver css/js no futuro)
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname));
 
-// Rota principal: abre o index.html
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.listen(PORT, () => {
-  console.log("Server ON na porta:", PORT);
+  console.log("Servidor rodando na porta:", PORT);
 });
